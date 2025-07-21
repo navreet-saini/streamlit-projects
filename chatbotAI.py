@@ -30,9 +30,8 @@ if user_input:
     elif "open google" in user_input:
         webbrowser.open(" https://www.google.com")
     
-    elif user_input:
+    elif user_input.endswith("in google") :
         webbrowser.open(" https://www.google.com/search?q=" + user_input.replace(" ","+"),new=2)
-    
 
 
     else:
