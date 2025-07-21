@@ -50,3 +50,6 @@ for key,data in st.session_state.chat_data:
             st.markdown(f" 🔍:  {data}")
         else:    
             st.markdown(f" 💡 :  {data}")
+
+
+            
