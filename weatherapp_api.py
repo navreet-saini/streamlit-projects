@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from datetime import datetime
 cities = [
     # Metro & Tier-1 Cities
     "Delhi", "Mumbai", "Bengaluru", "Hyderabad", "Chennai", "Kolkata", "Ahmedabad", "Pune", "Jaipur", "Surat",
@@ -8,10 +9,10 @@ cities = [
 
     # Haryana Cities
     "Gurugram", "Faridabad", "Panipat", "Ambala", "Karnal", "Hisar", "Rohtak", "Yamunanagar", "Sirsa", "Bahadurgarh",
-    "Sonipat", "Bhiwani", "Palwal", "Jind", "Rewari", "Kaithal", "Kurukshetra", "Fatehabad", "Jhajjar", "Charkhi Dadri",
+    "Sonipat", "Bhiwani", "Palwal", "Jind", "Rewari", "Kaithal", "Kurukshetra", "Fatehabad", "Jhajjar", "Charkhi Dadri","ladwa"
 
     # North India & Other Important Cities
-    "Guwahati", "Dehradun", "Chandigarh", "Mysuru", "Jamshedpur", "Udaipur", "Meerut", "Noida", "Ghaziabad",
+    "Guwahati", "Dehradun", "Chandigarh","Panckula","Mohali" "Mysuru", "Jamshedpur", "Udaipur", "Meerut", "Noida", "Ghaziabad",
     "Shimla", "Panaji", "Shillong", "Imphal", "Aizawl", "Kohima", "Itanagar", "Gangtok", "Puducherry", "Siliguri",
 
     # East, West, South Cities
@@ -30,7 +31,7 @@ cities = [
 API_KEY="4183104a9cac48f13632532a13b686c1"
 
 st.title("⛈️ My Weather App")
-choices=st.selectbox("Enter your city name:",cities)
+choices=st.selectbox("Choose your city name 📍:",cities)
 
 
 
@@ -42,17 +43,49 @@ if choices:
     data=response.json()
 
     if data["cod"]==200:
-        
-        weather=data["weather"][0]["main"]
-        temp=data["main"]["temp"]
-        humidity=data["main"]["humidity"]
-        wind_speed=data["wind"]["speed"]
 
         st.subheader(f"Weather in {choices.title()}")
-        st.write(f"**🌡️ Temperature :** {temp-273.15 :.2f}°C")  #by default it gives value in kelvin
-        st.write(f"**💧 Humidity :** {humidity}%")
-        st.write(f"**🌬️ Wind Speed :** {wind_speed} m/s")
-        st.write(f"**⛅ Condition :** {weather}")
+        sys=data["sys"]
+        col1,col2=st.columns(2)
+
+        with col1:
+            weather=data["weather"][0]["main"]
+            temp=data["main"]["temp"]
+            feel_temp=data["main"]["feels_like"]
+            humidity=data["main"]["humidity"]
+            wind_speed=data["wind"]["speed"]
+            wind_degree=data["wind"]["deg"]
+            wind_degree=data["wind"]["deg"]
+            
+
+           
+            st.write(f"**🌡️ Temperature :** {temp-273.15 :.2f}°C")  #by default it gives value in kelvin
+            st.write(f"**🥵 Feels-Like :** {feel_temp-273.15 :.2f}%")
+            st.write(f"**💧 Humidity :** {humidity}%")
+            st.write(f"**🌬️ Wind Speed :** {wind_speed} m/s")
+            st.write(f"**🧭 Wind degree :** {wind_degree}° ")
+            st.write(f"**⛅ Condition :** {weather}")
+            
+
+        with col2:
+            sunrise=datetime.fromtimestamp(sys['sunrise']).strftime('%H:%M:%S')
+            sunset=datetime.fromtimestamp(sys['sunset']).strftime('%H:%M:%S')
+            visibility=data["visibility"]
+            pressure=data["main"]["pressure"]
+            sea=data["main"]["sea_level"]
+            ground=data["main"]["grnd_level"]
+
+
+            
+            st.write(f"**🌇 Sunrise :** {sunrise}")
+            st.write(f"**🌆 Sunset :** {sunset}")
+            st.write(f"**👁️ Visibility :** {visibility} m")
+            st.write(f"**📈 Pressure :** {pressure} hPa")
+            st.write(f"**🌊 Sea-Level :** {sea} hPa")
+            st.write(f"**🏞️ Ground-Level :** {ground} hPa")
+
+
+
 
 
             
