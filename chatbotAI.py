@@ -5,7 +5,9 @@ import webbrowser
 if "chat_data" not in st.session_state:
     st.session_state.chat_data=[]
 
-API_key="AIzaSyAYE3L4uR9X7pwLWF-cOOCrv4lRj27J8Vg"
+# API_key="AIzaSyAYE3L4uR9X7pwLWF-cOOCrv4lRj27J8Vg"
+API_key="AIzaSyA6s0fkLVyhRWMsp7clQdsAcvzrA2kdhMk"
+
 
 genai.configure(api_key=API_key)   #initiallize
 
