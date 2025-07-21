@@ -34,17 +34,30 @@ choices=st.selectbox("Enter your city name:",cities)
 
 
 
+
 if choices:
     url=f"https://api.openweathermap.org/data/2.5/weather?q={choices}&appid={API_KEY}"
 
     response=requests.get(url)
+    data=response.json()
 
-    if response.status_code==200:
-        st.write("API working")    #writes the ouput
-        # st.json(response.json())
+    if data["cod"]==200:
+        
+        weather=data["weather"][0]["main"]
+        temp=data["main"]["temp"]
+        humidity=data["main"]["humidity"]
+        wind_speed=data["wind"]["speed"]
 
-        weather_info=response.json()
-        st.write(weather_info)
+        st.subheader(f"Weather in {choices.title()}")
+        st.write(f"**🌡️ Temperature :** {temp}°C")
+        st.write(f"**💧 Humidity :** {humidity}%")
+        st.write(f"**🌬️ Wind Speed :** {wind_speed} m/s")
+        st.write(f"**⛅ Condition :** {weather}")
+
+
+            
     else:
-        st.write("something went wrong")
+        st.error("City not found ❌")
+       
+    
         
