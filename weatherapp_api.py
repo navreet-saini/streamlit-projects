@@ -49,7 +49,7 @@ if choices:
         wind_speed=data["wind"]["speed"]
 
         st.subheader(f"Weather in {choices.title()}")
-        st.write(f"**🌡️ Temperature :** {temp}°C")
+        st.write(f"**🌡️ Temperature :** {temp-273.15 :.2f}°C")  #by default it gives value in kelvin
         st.write(f"**💧 Humidity :** {humidity}%")
         st.write(f"**🌬️ Wind Speed :** {wind_speed} m/s")
         st.write(f"**⛅ Condition :** {weather}")
